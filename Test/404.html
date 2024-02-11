@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/gsap.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to right, #292a4a, #373b69, #292a4a);
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+        }
+
+        .copy-container {
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        p {
+            font-size: 24px;
+            letter-spacing: 0.2px;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(40) 1s forwards, fadeIn 1s ease-out 2s forwards;
+            transition: color 0.3s ease; 
+        }
+
+        p:hover {
+            color: #9c82e6;
+            text-shadow: none; 
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .handle {
+            background: none;
+            width: 14px;
+            height: 30px;
+            top: 0;
+            left: 0;
+            margin-top: 1px;
+            position: absolute;
+        }
+
+        .go-home-button {
+            background-color: #6c63ff;
+            color: #fff;
+            font-size: 18px;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-radius 0.3s ease, transform 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .go-home-button:hover {
+            background-color: #524bd4;
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        #cb-replay {
+            fill: #666;
+            width: 20px;
+            margin: 15px;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            overflow: inherit;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #cb-replay:hover {
+            fill: #888;
+            transform: rotate(360deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="copy-container">
+            <p id="typewriter">404, page not found.</p>
+            <span class="handle"></span>
+        </div>
+        <button class="go-home-button" onclick="goHome()">Go Home</button>
+    </div>
+
+    <svg version="1.1" id="cb-replay" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="0 0 279.9 297.3" style="enable-background:new 0 0 279.9 297.3;" xml:space="preserve">
+        <g>
+            <path d="M269.4,162.6c-2.7,66.5-55.6,120.1-121.8,123.9c-77,4.4-141.3-60-136.8-136.9C14.7,81.7,71,27.8,140,27.8
+                c1.8,0,3.5,0,5.3,0.1c0.3,0,0.5,0.2,0.5,0.5v15c0,1.5,1.6,2.4,2.9,1.7l35.9-20.7c1.3-0.7,1.3-2.6,0-3.3L148.6,0.3
+                c-1.3-0.7-2.9,0.2-2.9,1.7v15c0,0.3-0.2,0.5-0.5,0.5c-1.7-0.1-3.5-0.1-5.2-0.1C63.3,17.3,1,78.9,0,155.4
+                C-1,233.8,63.4,298.3,141.9,297.3c74.6-1,135.1-60.2,138-134.3c0.1-3-2.3-5.4-5.3-5.4l0,0C271.8,157.6,269.5,159.8,269.4,162.6z"/>
+        </g>
+    </svg>
+
+    <script>
+        function goHome() {
+            
+            console.log("Go Home button clicked!");
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var container = document.querySelector(".container");
+            container.style.opacity = "1";
+        });
+    </script>
+</body>
+</html>

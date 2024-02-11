@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Gen</title>
+  <link rel="stylesheet" href="\Styling\styles.css">
+  <link rel="stylesheet" href="\Styling\custom-styles.css">
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: 0 auto;
+      width: 300px;
+      padding: 20px;
+      background-color: #2c3e50;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+      text-align: center;
+      border-radius: 8px;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .close-button {
+      background-color: #3498db;
+      color: #fff;
+      font-size: 16px;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-radius 0.3s ease, transform 0.3s ease;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .close-button:hover {
+      background-color: #2980b9;
+    }
+
+    #popUpServiceName {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .popup_overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1001;
+    }
+
+    .popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #34495e;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1002;
+    }
+
+    .modal .modal-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="dashboard">
+    <div class="user-section">
+      <div class="user-card">
+        <div class="user-avatar">
+          <img src="\Assets\healavatar_QTjc5J.jpg" alt="User Avatar">
+        </div>
+        <div class="user-info">
+          <div class="user-name">F4ll</div>
+          <div class="user-badge">Premium</div>
+          <div class="current-subscription">
+            <div class="current-subscription-title">Current Subscription</div>
+            <div class="current-subscription-info">
+              <div>Premium</div>
+              <div class="countdown" id="countdown"></div>
+            </div>
+          </div>
+          <button class="renew-button" onclick="renewSubscription()">Renew Subscription</button>
+          <button class="upgrade-button" onclick="upgradeSubscription()">Upgrade Subscription</button>
+          <button class="logout-button" onclick="logout()">Log out</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="generate-section">
+      <div class="gen-history-section">
+        <div class="gen-history-title">Gen History</div>
+        <ul class="gen-history-list"></ul>
+      </div>
+
+      <div class="gen-form-section">
+        <div class="gen-form">
+          <div class="gen-form-title">Generate Accounts</div>
+          <select class="gen-form-dropdown" id="accountTypeDropdown">
+            <option value="Netflix">Netflix</option>
+            <option value="Roblox">Roblox</option>
+            <option value="Fortnite">Fortnite</option>
+          </select>
+          <button class="gen-form-button" id="gen-form-button">Generate</button>
+
+          <div class="modal popup_overlay" id="generatedService">
+            <div class="popup">
+              <div id="popUpServiceName"></div>
+              <button class="close-button" id="close-popup">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector(".container");
+      container.style.opacity = "1";
+    });
+
+    let lines = [];
+    let currentLineIndex = 0;
+
+    function goHome() { }
+
+    function generateServiceUI(serviceName, generatedServiceName) {
+      var popUpServiceName = document.getElementById("popUpServiceName");
+      popUpServiceName.textContent = generatedServiceName;
+      document.querySelector('.popup_overlay').style.display = 'block';
+      var modalTitle = document.querySelector('.modal .modal-title');
+      modalTitle.textContent = `Your ${serviceName} Account`;
+      currentLineIndex++;
+      lines.splice(0, 1);
+    }
+
+    function closeModal() {
+      document.querySelector('.popup_overlay').style.display = 'none';
+    }
+
+    async function loadAccountChoices() {
+      const response = await fetch("/accountChoices");
+      return response.json();
+    }
+
+    async function loadAccountText(serviceName) {
+      const response = await fetch(`accounts/${serviceName}`);
+      return await response.text();
+    }
+
+    async function generateAccounts() {
+      const serviceName = document.getElementById("accountTypeDropdown").value;
+      const choices = await loadAccountChoices();
+      if (!choices.includes(serviceName)) {
+        displayError("Error: Invalid account type");
+        return;
+      }
+      const text = await loadAccountText(serviceName);
+      lines = text.split("\n");
+      if (lines.length > 0) {
+        const currentLine = lines[0];
+        generateServiceUI(serviceName, currentLine);
+      } else {
+        displayError("Error: No more accounts available");
+      }
+    }
+
+    function displayError(message) {
+      var popUpServiceName = document.getElementById("popUpServiceName");
+      popUpServiceName.textContent = message;
+      document.querySelector('.popup_overlay').style.display = 'block';
+    }
+
+    async function updateDropdown() {
+      const response = await fetch("/accountList");
+      const choices = await response.json();
+      const dropdown = document.getElementById("accountTypeDropdown");
+      dropdown.innerHTML = "";
+      choices.forEach(choice => {
+        const option = document.createElement("option");
+        option.value = choice;
+        option.textContent = choice;
+        dropdown.appendChild(option);
+      });
+    }
+
+    updateDropdown();
+
+    document.getElementById('gen-form-button').addEventListener('click', generateAccounts);
+    document.getElementById('close-popup').addEventListener('click', closeModal);
+  </script>
+
+</body>
+
+</html>

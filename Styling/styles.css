@@ -1,0 +1,254 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #141a46;
+    color: #ffffff;
+}
+
+.dashboard {
+    display: flex;
+    width: 80%;
+}
+
+.user-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px;
+}
+
+.user-card {
+    border: 1px solid #0e1640;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    background-color: #1a1f4e;
+    transition: transform 0.3s ease;
+}
+
+.user-card:hover {
+    transform: scale(1.05);
+}
+
+.user-avatar {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.user-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.user-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.user-badge {
+    background-color: #004080;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+}
+
+.current-subscription {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #00264d;
+    border-radius: 8px;
+}
+
+.current-subscription-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.current-subscription-info {
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.countdown {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.renew-button,
+.upgrade-button,
+.logout-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.renew-button {
+    background-color: #32CD32;
+    color: #ffffff;
+}
+
+.renew-button:hover {
+    background-color: #008000;
+}
+
+.upgrade-button {
+    background-color: #FFD700;
+    color: #000000;
+}
+
+.upgrade-button:hover {
+    background-color: #FFB400;
+}
+
+.logout-button {
+    background-color: #8B0000;
+    color: #ffffff;
+}
+
+.logout-button:hover {
+    background-color: #FF0000;
+}
+
+.generate-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gen-history-section,
+.gen-form-section {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+    background-color: #1a1f4e;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.gen-history-section:hover,
+.gen-form-section:hover {
+    background-color: #0a0e29;
+}
+
+.gen-history-title,
+.gen-form-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.gen-history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.gen-history-item {
+    margin-bottom: 10px;
+}
+
+.gen-form {
+    border-top: 1px solid #0e1640;
+    padding-top: 20px;
+}
+
+.gen-form-input,
+.gen-form-dropdown {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.gen-form-dropdown {
+    appearance: none;
+    background-color: #2c325d;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1em;
+    background-image: url('service.png');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    padding-right: 30px;
+}
+
+.gen-form-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+    background-color: #004080;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.gen-form-button:hover {
+    background-color: #00264d;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.additional-button:hover {
+    background-color: #004d00;
+}
+
+.close-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+    background-color: #cc0000;
+}
